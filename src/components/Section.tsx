@@ -1,19 +1,20 @@
 import React from 'react';
 import { CommentsProps } from '../interfaces/DataProps';
+import SectionWrapper from '../styles/SectionWrapper';
 import Comment from './cards/Comment';
 import Reply from './cards/Reply';
 
 const Section:React.FC<CommentsProps> = (props) => {
   return (
-    <section className='comment-section'>
+    <SectionWrapper>
       <Comment {...props}/>
       {
         props.replies.length !== 0 &&
-        <section className='reply-section'>
+        <SectionWrapper isReply={true}>
           {props.replies.map(reply => <Reply key={reply.id} {...reply}/>)}
-        </section>
+        </SectionWrapper>
       }
-    </section>
+    </SectionWrapper>
   );
 }
 

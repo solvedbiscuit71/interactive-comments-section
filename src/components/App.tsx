@@ -29,6 +29,8 @@ const App:React.FC = () => {
         font-family: 'Rubik';
         margin: 0;
         padding: 0;
+        background-color: ${theme.bg.wrapper};
+        min-height: 100vh;
       }
       `}/>
 

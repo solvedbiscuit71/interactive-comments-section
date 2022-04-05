@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
 export default styled.div(props => ({
-  width: '100%',
-  minHeight: '100vh',
+  width: 'min(91.5vw,730px)',
+  margin: '2em auto',
 
-  display: 'grid',
-  placeContent: 'center',
-  backgroundColor: props.theme.bg.wrapper
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1em'
 }));
