@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import Button from "../../styles/components/Button";
+import CommentInputWrapper from "../../styles/wrappers/CommentInputWrapper";
 
 interface Props {
   onSend: (content: string) => void;
@@ -9,11 +11,17 @@ const CommentInput: React.FC<Props> = (props) => {
   const [content, setContent] = useState<string>("");
   const currentUser = useContext(UserContext);
 
+  const handleClick = () => {
+    props.onSend(content);
+    setContent("");
+  };
+
   return (
-    <div>
+    <CommentInputWrapper>
       <textarea
         name="content"
         value={content}
+        placeholder="Add a comment..."
         onChange={(event) => setContent(event.target.value)}
       ></textarea>
       <div>
@@ -21,9 +29,9 @@ const CommentInput: React.FC<Props> = (props) => {
           src={currentUser.image.webp}
           alt={`${currentUser.username}'s avatar`}
         />
-        <button onClick={(event) => props.onSend(content)}>SEND</button>
+        <Button onClick={handleClick}>SEND</Button>
       </div>
-    </div>
+    </CommentInputWrapper>
   );
 };
 

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export default styled.div((props) => ({
   backgroundColor: props.theme.bg.card,
-  borderRadius: "1em",
+  borderRadius: ".625em",
 
   padding: "1em",
   position: "relative",
