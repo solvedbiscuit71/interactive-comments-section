@@ -5,6 +5,7 @@ export default styled.div(props => ({
   borderRadius: '1em',
 
   padding: '1em',
+  position: 'relative',
 
   '.hero': {
     '.flex': {
@@ -35,5 +36,14 @@ export default styled.div(props => ({
         marginRight: '.25em'
       }
     }
+  },
+  
+  '.action': {
+    display: 'flex',
+    gap: '1em',
+
+    position: 'absolute',
+    bottom: '1.625em',
+    right: '1em'
   }
 }));
