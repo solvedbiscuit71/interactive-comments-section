@@ -1,20 +1,43 @@
 import * as React from "react";
-import DataProps from "../interfaces/DataProps";
+import DataProps, { CommentsProps } from "../interfaces/DataProps";
 import Section from "./Section";
 import UserContext from "../contexts/UserContext";
 import Wrapper from "../styles/Wrapper";
 import theme from "../styles/Theme";
 import { Global, ThemeProvider } from "@emotion/react";
 import { useState, useEffect } from "react";
+import CommentInput from "./inputs/CommentInput";
 
 const App: React.FC = () => {
   const [data, setData] = useState<DataProps | null>(null);
+  const [id, setId] = useState<number>(0);
   useEffect(() => {
     fetch("data.json")
       .then((res) => res.json())
-      .then((res) => setData(res))
+      .then((res) => {
+        setId(res.comments.length + 1);
+        setData(res);
+      })
       .catch((err) => console.log(err));
   }, []);
+
+  const createComment = (content: string) => {
+    if (data !== null) {
+      const newComment: CommentsProps = {
+        id: id,
+        content: content,
+        createdAt: "a few seconds ago",
+        score: 0,
+        user: data?.currentUser,
+        replies: [],
+      };
+      setId((oldId) => oldId + 1);
+      setData((oldData) => {
+        oldData?.comments.push(newComment);
+        return oldData;
+      });
+    }
+  };
 
   return (
     <>
@@ -43,6 +66,7 @@ const App: React.FC = () => {
               {data.comments.map((comment) => {
                 return <Section key={comment.id} {...comment} />;
               })}
+              <CommentInput onSend={createComment} />
             </UserContext.Provider>
           )}
         </Wrapper>
