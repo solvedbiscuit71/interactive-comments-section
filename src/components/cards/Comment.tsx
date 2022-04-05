@@ -1,54 +1,56 @@
-import CardWrapper from '../../styles/CardWrapper';
-import React, { useContext } from 'react';
-import UserContext from '../../contexts/UserContext';
-import { CommentProps } from '../../interfaces/DataProps';
-import Tag from '../../styles/Tag';
-import Badge from '../../styles/Badge';
-import Vote from '../../styles/Vote';
+import Badge from "../../styles/Badge";
+import CardWrapper from "../../styles/CardWrapper";
+import React, { useContext } from "react";
+import Tag from "../../styles/Tag";
+import UserContext from "../../contexts/UserContext";
+import Vote from "../../styles/Vote";
+import { CommentProps } from "../../interfaces/DataProps";
 
-const Comment:React.FC<CommentProps> = (props) => {
-  const currentUser = useContext(UserContext)
+const Comment: React.FC<CommentProps> = (props) => {
+  const currentUser = useContext(UserContext);
 
   return (
     <CardWrapper>
-      <div className='hero'>
-        <div className='flex'>
-          <img src={props.user.image.webp} alt={`${props.user.username}'s avatar`} />
+      <div className="hero">
+        <div className="flex">
+          <img
+            src={props.user.image.webp}
+            alt={`${props.user.username}'s avatar`}
+          />
           <h2>
             {props.user.username}
-            { currentUser.username === props.user.username && <Tag>you</Tag>}
+            {currentUser.username === props.user.username && <Tag>you</Tag>}
           </h2>
           <span>{props.createdAt}</span>
         </div>
         <p>{props.content}</p>
       </div>
-      <Vote className='vote'>
+      <Vote className="vote">
         <img src="images/icon-plus.svg" alt="plus icon" />
         <span>{props.score}</span>
         <img src="images/icon-minus.svg" alt="minus icon" />
       </Vote>
-      {
-        currentUser.username === props.user.username ?
-        <div className='action'>
-          <Badge modifier='secondary'>
+      {currentUser.username === props.user.username ? (
+        <div className="action">
+          <Badge modifier="secondary">
             <img src="images/icon-delete.svg" alt="delete icon" />
             <span>Delete</span>
           </Badge>
-          <Badge modifier='primary'>
+          <Badge modifier="primary">
             <img src="images/icon-edit.svg" alt="edit icon" />
             <span>Edit</span>
           </Badge>
         </div>
-        :
-        <div className='action'>
-          <Badge modifier='primary'>
+      ) : (
+        <div className="action">
+          <Badge modifier="primary">
             <img src="images/icon-reply.svg" alt="reply icon" />
             <span>Reply</span>
           </Badge>
         </div>
-      }
+      )}
     </CardWrapper>
   );
-}
+};
 
 export default Comment;
