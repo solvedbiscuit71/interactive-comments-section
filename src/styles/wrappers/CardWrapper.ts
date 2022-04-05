@@ -1,11 +1,16 @@
 import styled from "@emotion/styled";
 
 export default styled.div((props) => ({
-  backgroundColor: props.theme.bg.card,
-  borderRadius: ".625em",
+  display: 'flex',
+  flexDirection: "column",
+  gap: '.5em',
+  '.card': {
+    backgroundColor: props.theme.bg.card,
+    borderRadius: ".625em",
 
-  padding: "1em",
-  position: "relative",
+    padding: "1em",
+    position: "relative",
+  },
 
   ".hero": {
     ".flex": {
