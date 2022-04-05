@@ -1,16 +1,19 @@
 import React from 'react';
-import { CommentProps } from '../../interfaces/DataProps';
+import { ReplyProps } from '../../interfaces/DataProps';
 
-const Comment:React.FC<CommentProps> = (props) => {
+const Reply:React.FC<ReplyProps> = (props) => {
   return (
-    <div className='comment'>
+    <div className='reply'>
       <div>
         <div>
           <img src={props.user.image.webp} alt={`${props.user.username}'s avatar`} />
           <h2>{props.user.username}</h2>
           <span>{props.createdAt}</span>
         </div>
-        <p>{props.content}</p>
+        <p>
+          <span>@{props.replyingTo}</span>
+          {props.content}
+        </p>
       </div>
       <div>
         <img src="images/icon-plus.svg" alt="plus icon" />
@@ -25,4 +28,4 @@ const Comment:React.FC<CommentProps> = (props) => {
   );
 }
 
-export default Comment;
+export default Reply;

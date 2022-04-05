@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import UserContext from '../contexts/UserContext';
 import DataProps from '../interfaces/DataProps';
-import Comment from './cards/Comment';
+import Section from './Section';
+import UserContext from '../contexts/UserContext';
 
 const App:React.FC = () => {
   const [data, setData] = useState<DataProps | null>(null);
@@ -20,7 +20,7 @@ const App:React.FC = () => {
         <UserContext.Provider value={data.currentUser}>
           {data.comments.map(comment => {
             return (
-              <Comment {...comment}/>
+              <Section key={comment.id} {...comment}/>
             )
           })}
         </UserContext.Provider>
