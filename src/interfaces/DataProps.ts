@@ -34,7 +34,7 @@ export interface CommentsProps {
 
 interface DataProps {
   currentUser: UserProps
-  comments: CommentsProps
+  comments: CommentsProps[]
 }
 
 export default DataProps;
