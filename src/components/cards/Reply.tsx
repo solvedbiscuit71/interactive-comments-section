@@ -1,17 +1,20 @@
 import React, { useContext } from 'react';
 import UserContext from '../../contexts/UserContext';
 import { ReplyProps } from '../../interfaces/DataProps';
+import CardWrapper from '../../styles/CardWrapper';
 
 const Reply:React.FC<ReplyProps> = (props) => {
   const currentUser = useContext(UserContext)
 
   return (
-    <div className='reply'>
-      <div>
-        <div>
+    <CardWrapper>
+      <div className='hero'>
+        <div className='flex'>
           <img src={props.user.image.webp} alt={`${props.user.username}'s avatar`} />
-          <h2>{props.user.username}</h2>
-          { currentUser.username === props.user.username && <span>YOU</span>}
+          <h2>
+            {props.user.username}
+            { currentUser.username === props.user.username && <span>YOU</span>}
+          </h2>
           <span>{props.createdAt}</span>
         </div>
         <p>
@@ -42,7 +45,7 @@ const Reply:React.FC<ReplyProps> = (props) => {
           <span>Reply</span>
         </div>
       }
-    </div>
+    </CardWrapper>
   );
 }
 
