@@ -7,11 +7,16 @@ import Vote from "../../styles/components/Vote";
 import { CommentProps } from "../../interfaces/DataProps";
 import ReplyInput from "../inputs/ReplyInput";
 
-const Comment: React.FC<CommentProps> = (props) => {
+interface Props {
+  onReply: (content: string, replyingTo: string) => void;
+}
+
+const Comment: React.FC<CommentProps & Props> = (props) => {
   const [reply, setReply] = useState<boolean>(false);
   const currentUser = useContext(UserContext);
 
   const handleReply = (content: string) => {
+    props.onReply(content, props.user.username);
     setReply(false);
   };
 

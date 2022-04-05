@@ -12,6 +12,9 @@ const CommentInput: React.FC<Props> = (props) => {
   const currentUser = useContext(UserContext);
 
   const handleClick = () => {
+    if (content.length === 0) {
+      return
+    }
     props.onSend(content);
     setContent("");
   };

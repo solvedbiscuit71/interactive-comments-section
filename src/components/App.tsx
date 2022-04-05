@@ -1,5 +1,5 @@
 import * as React from "react";
-import DataProps, { CommentsProps } from "../interfaces/DataProps";
+import DataProps, { CommentsProps, ReplyProps } from "../interfaces/DataProps";
 import Section from "./Section";
 import UserContext from "../contexts/UserContext";
 import Wrapper from "../styles/wrappers/Wrapper";
@@ -9,32 +9,54 @@ import { useState, useEffect } from "react";
 import CommentInput from "./inputs/CommentInput";
 
 const App: React.FC = () => {
+  console.log('rendering')
   const [data, setData] = useState<DataProps | null>(null);
-  const [id, setId] = useState<number>(0);
   useEffect(() => {
     fetch("data.json")
       .then((res) => res.json())
-      .then((res) => {
-        setId(res.comments.length + 1);
-        setData(res);
-      })
+      .then((res) => setData(res))
       .catch((err) => console.log(err));
   }, []);
 
   const createComment = (content: string) => {
     if (data !== null) {
+      const newId = data.comments.length + 1;
       const newComment: CommentsProps = {
-        id: id,
+        id: newId,
         content: content,
         createdAt: "a few seconds ago",
         score: 0,
         user: data?.currentUser,
         replies: [],
       };
-      setId((oldId) => oldId + 1);
       setData((oldData) => {
-        oldData?.comments.push(newComment);
-        return oldData;
+        let newData = JSON.parse(JSON.stringify(oldData))
+        newData.comments.push(newComment);
+        return newData;
+      });
+    }
+  };
+
+  const createReply = (
+    content: string,
+    replyingTo: string,
+    commentId: number
+  ) => {
+    if (data !== null) {
+      const newId = data.comments[commentId - 1].replies.length + 1;
+      const newReply: ReplyProps = {
+        id: newId,
+        content: content,
+        replyingTo: replyingTo,
+        createdAt: "a few seconds ago",
+        user: data.currentUser,
+        score: 0,
+      };
+
+      setData((oldData) => {
+        let newData = JSON.parse(JSON.stringify(oldData))
+        newData.comments[commentId - 1].replies.push(newReply);
+        return newData;
       });
     }
   };
@@ -64,7 +86,13 @@ const App: React.FC = () => {
           {data && (
             <UserContext.Provider value={data.currentUser}>
               {data.comments.map((comment) => {
-                return <Section key={comment.id} {...comment} />;
+                return (
+                  <Section
+                    key={comment.id}
+                    {...comment}
+                    onReply={createReply}
+                  />
+                );
               })}
               <CommentInput onSend={createComment} />
             </UserContext.Provider>

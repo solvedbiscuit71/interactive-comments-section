@@ -26,6 +26,9 @@ const ReplyInput: React.FC<Props> = ({ onReply, replyingTo }) => {
 
   const handleReply = (event: React.MouseEvent<HTMLButtonElement>) => {
     const trimContent = content.slice(replyingTo.length + 2).trim();
+    if (trimContent.length === 0) {
+      return
+    }
     onReply(trimContent);
   };
 
