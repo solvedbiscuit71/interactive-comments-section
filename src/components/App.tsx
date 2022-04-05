@@ -2,7 +2,7 @@ import * as React from "react";
 import DataProps, { CommentsProps } from "../interfaces/DataProps";
 import Section from "./Section";
 import UserContext from "../contexts/UserContext";
-import Wrapper from "../styles/Wrapper";
+import Wrapper from "../styles/wrappers/Wrapper";
 import theme from "../styles/Theme";
 import { Global, ThemeProvider } from "@emotion/react";
 import { useState, useEffect } from "react";

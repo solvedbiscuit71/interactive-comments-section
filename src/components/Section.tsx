@@ -1,7 +1,7 @@
 import Comment from "./cards/Comment";
 import React from "react";
 import Reply from "./cards/Reply";
-import SectionWrapper from "../styles/SectionWrapper";
+import SectionWrapper from "../styles/wrappers/SectionWrapper";
 import { CommentsProps } from "../interfaces/DataProps";
 
 const Section: React.FC<CommentsProps> = (props) => {

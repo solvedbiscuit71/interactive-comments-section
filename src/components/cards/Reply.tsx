@@ -1,9 +1,9 @@
-import Badge from "../../styles/Badge";
-import CardWrapper from "../../styles/CardWrapper";
+import Badge from "../../styles/components/Badge";
+import CardWrapper from "../../styles/wrappers/CardWrapper";
 import React, { useContext } from "react";
-import Tag from "../../styles/Tag";
+import Tag from "../../styles/components/Tag";
 import UserContext from "../../contexts/UserContext";
-import Vote from "../../styles/Vote";
+import Vote from "../../styles/components/Vote";
 import { ReplyProps } from "../../interfaces/DataProps";
 
 const Reply: React.FC<ReplyProps> = (props) => {
