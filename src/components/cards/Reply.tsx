@@ -12,12 +12,15 @@ interface Props {
   onReply: (content: string, replyingTo: string) => void;
   onDelete: (replyId: number | null) => void;
   onVote: (replyId: number | null, type: "up" | "down") => void;
+  onUpdate: (replyId: number | null, newContent: string) => void;
 }
 
 const Reply: React.FC<ReplyProps & Props> = (props) => {
   const [reply, setReply] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
-  const [content, setContent] = useState(`@${props.replyingTo}, ${props.content}`);
+  const [content, setContent] = useState(
+    `@${props.replyingTo}, ${props.content}`
+  );
   const currentUser = useContext(UserContext);
 
   const handleReply = (content: string) => {
@@ -33,9 +36,8 @@ const Reply: React.FC<ReplyProps & Props> = (props) => {
   };
 
   const handleUpdate = () => {
-    const trimContent = content.slice(props.replyingTo.length + 3).trim()
-    // Need to update the data
-    console.log("New Content:",trimContent)
+    const trimContent = content.slice(props.replyingTo.length + 3).trim();
+    props.onUpdate(props.id,trimContent)
     setEdit(false);
   };
 
@@ -44,7 +46,8 @@ const Reply: React.FC<ReplyProps & Props> = (props) => {
 
     const newContent = event.target.value;
     if (
-      newContent.slice(0, props.replyingTo.length + 3) === "@" + props.replyingTo + ", " &&
+      newContent.slice(0, props.replyingTo.length + 3) ===
+        "@" + props.replyingTo + ", " &&
       newContent.length > props.replyingTo.length + 2
     ) {
       setContent(newContent);

@@ -102,6 +102,23 @@ const App: React.FC = () => {
     setShowModal(true);
   };
 
+  const editComment = (
+    commentId: number,
+    replyId: number | null,
+    newContent: string
+  ) => {
+    setData((oldData) => {
+      let newData: DataProps = JSON.parse(JSON.stringify(oldData));
+      if (replyId === null) {
+        newData.comments[commentId - 1].content = newContent;
+      } else {
+        newData.comments[commentId - 1].replies[replyId - 1].content =
+          newContent;
+      }
+      return newData;
+    });
+  };
+
   const handleVote = (
     commentId: number,
     replyId: number | null,
@@ -174,6 +191,7 @@ const App: React.FC = () => {
                     onReply={createReply}
                     onDelete={comfirmDelete}
                     onVote={handleVote}
+                    onUpdate={editComment}
                   />
                 );
               })}

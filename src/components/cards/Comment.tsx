@@ -12,6 +12,7 @@ interface Props {
   onReply: (content: string, replyingTo: string) => void;
   onDelete: (replyId: number | null) => void;
   onVote: (replyId: number | null, type: "up" | "down") => void;
+  onUpdate: (replyId: number | null, newContent: string) => void;
 }
 
 const Comment: React.FC<CommentProps & Props> = (props) => {
@@ -33,8 +34,7 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
   };
 
   const handleUpdate = () => {
-    // Need to update the data
-    console.log("New Comment:", content)
+    props.onUpdate(null,content)
     setEdit(false);
   };
 

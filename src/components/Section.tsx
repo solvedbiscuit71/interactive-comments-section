@@ -7,7 +7,16 @@ import { CommentsProps } from "../interfaces/DataProps";
 interface Props {
   onReply: (content: string, replyingTo: string, commentId: number) => void;
   onDelete: (commentId: number, replyId: number | null) => void;
-  onVote: (commentId: number, replyId: number | null, type: 'up' | 'down') => void
+  onVote: (
+    commentId: number,
+    replyId: number | null,
+    type: "up" | "down"
+  ) => void;
+  onUpdate: (
+    commentId: number,
+    replyId: number | null,
+    newContent: string
+  ) => void;
 }
 
 const Section: React.FC<CommentsProps & Props> = (props) => {
@@ -23,6 +32,10 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
     props.onVote(props.id, replyId, type);
   };
 
+  const handleUpdate = (replyId: number | null, newContent: string) => {
+    props.onUpdate(props.id, replyId, newContent);
+  };
+
   return (
     <SectionWrapper>
       <Comment
@@ -30,6 +43,7 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
         onReply={handleReply}
         onDelete={handleDelete}
         onVote={handleVote}
+        onUpdate={handleUpdate}
       />
       {props.replies.length !== 0 && (
         <SectionWrapper isReply={true}>
@@ -40,6 +54,7 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
               onReply={handleReply}
               onDelete={handleDelete}
               onVote={handleVote}
+              onUpdate={handleUpdate}
             />
           ))}
         </SectionWrapper>
