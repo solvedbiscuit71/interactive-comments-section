@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 
-export default styled.div((props) => ({
+interface Props {
+  disable: boolean;
+}
+
+export default styled.div<Props>((props) => ({
   width: "6.125em",
   minHeight: "2.5em",
 
@@ -16,6 +20,13 @@ export default styled.div((props) => ({
     fontSize: "1rem",
     fontWeight: 500,
     color: props.theme.text.vote,
+  },
+
+  "> svg:hover": {
+    cursor: props.disable ? "not-allowed" : "pointer",
+    path: {
+      fill: props.disable ? "#C5C6EF" : props.theme.text.vote,
+    },
   },
 
   "@media (min-width: 769px)": {

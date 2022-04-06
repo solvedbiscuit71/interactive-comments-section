@@ -19,4 +19,9 @@ export default styled.button<Props>((props) => ({
   fontSize: "1rem",
   fontWeight: 500,
   textTransform: "uppercase",
+
+  "&:hover": {
+    cursor: "pointer",
+    opacity: 0.5,
+  },
 }));

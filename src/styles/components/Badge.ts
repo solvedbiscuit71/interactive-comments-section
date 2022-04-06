@@ -12,4 +12,9 @@ export default styled.div<Props>((props) => ({
   display: "flex",
   gap: ".5em",
   alignItems: "center",
+
+  "&:hover": {
+    cursor: "pointer",
+    opacity: 0.5,
+  },
 }));

@@ -28,8 +28,9 @@ export default styled.div((props) => ({
     fontFamily: "Rubik",
     color: props.theme.text.heading,
 
-    "&:focus": {
+    "&:focus,&:hover": {
       borderColor: props.theme.bg.button.primary,
+      cursor: "pointer",
       caretColor: props.theme.bg.button.primary,
       outline: "none",
     },
