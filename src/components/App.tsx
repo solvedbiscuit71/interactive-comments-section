@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import CommentInput from "./inputs/CommentInput";
 import Modal from "./cards/Modal";
 
+const key = 'commentData'
 interface DeleteProps {
   commentId: number;
   replyId: number | null;
@@ -20,10 +21,17 @@ const App: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetch("data.json")
-      .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => console.log(err));
+    if (localStorage.getItem(key) !== null) {
+      setData(JSON.parse(localStorage.getItem(key)!))
+    } else {
+      fetch("data.json")
+        .then((res) => res.json())
+        .then((res) => { 
+          localStorage.setItem(key,JSON.stringify(res))
+          setData(res) 
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   const createComment = (content: string) => {
@@ -40,6 +48,7 @@ const App: React.FC = () => {
       setData((oldData) => {
         let newData = JSON.parse(JSON.stringify(oldData));
         newData.comments.push(newComment);
+        localStorage.setItem(key,JSON.stringify(newData))
         return newData;
       });
     }
@@ -64,6 +73,7 @@ const App: React.FC = () => {
       setData((oldData) => {
         let newData = JSON.parse(JSON.stringify(oldData));
         newData.comments[commentId - 1].replies.push(newReply);
+        localStorage.setItem(key,JSON.stringify(newData))
         return newData;
       });
     }
@@ -79,6 +89,7 @@ const App: React.FC = () => {
           newData.comments = newData.comments.filter(
             (comment) => comment.id !== toDelete.commentId
           );
+          localStorage.setItem(key,JSON.stringify(newData))
           return newData;
         });
       } else {
@@ -87,6 +98,7 @@ const App: React.FC = () => {
           newData.comments[toDelete.commentId - 1].replies = newData.comments[
             toDelete.commentId - 1
           ].replies.filter((reply) => reply.id !== toDelete.replyId);
+          localStorage.setItem(key,JSON.stringify(newData))
           return newData;
         });
       }
@@ -115,6 +127,7 @@ const App: React.FC = () => {
         newData.comments[commentId - 1].replies[replyId - 1].content =
           newContent;
       }
+      localStorage.setItem(key,JSON.stringify(newData))
       return newData;
     });
   };
@@ -155,6 +168,7 @@ const App: React.FC = () => {
           }
           break;
       }
+      localStorage.setItem(key,JSON.stringify(newData))
       return newData;
     });
   };
