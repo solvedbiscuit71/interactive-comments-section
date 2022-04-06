@@ -11,6 +11,7 @@ export interface CommentProps {
   content: string;
   createdAt: string;
   score: number;
+  voted?: boolean;
   user: UserProps;
 }
 
@@ -19,6 +20,7 @@ export interface ReplyProps {
   content: string;
   createdAt: string;
   score: number;
+  voted?: boolean;
   replyingTo: string;
   user: UserProps;
 }
@@ -28,6 +30,7 @@ export interface CommentsProps {
   content: string;
   createdAt: string;
   score: number;
+  voted?: boolean;
   user: UserProps;
   replies: ReplyProps[];
 }

@@ -18,9 +18,18 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
     props.onDelete(props.id, replyId);
   };
 
+  const handleVote = (replyId: number | null, type: "up" | "down") => {
+    console.log(props.id, replyId, type);
+  };
+
   return (
     <SectionWrapper>
-      <Comment {...props} onReply={handleReply} onDelete={handleDelete} />
+      <Comment
+        {...props}
+        onReply={handleReply}
+        onDelete={handleDelete}
+        onVote={handleVote}
+      />
       {props.replies.length !== 0 && (
         <SectionWrapper isReply={true}>
           {props.replies.map((reply) => (
@@ -29,6 +38,7 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
               {...reply}
               onReply={handleReply}
               onDelete={handleDelete}
+              onVote={handleVote}
             />
           ))}
         </SectionWrapper>

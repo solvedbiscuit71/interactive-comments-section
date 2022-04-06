@@ -10,6 +10,7 @@ import ReplyInput from "../inputs/ReplyInput";
 interface Props {
   onReply: (content: string, replyingTo: string) => void;
   onDelete: (replyId: number | null) => void;
+  onVote: (replyId: number | null, type: "up" | "down") => void;
 }
 
 const Reply: React.FC<ReplyProps & Props> = (props) => {
@@ -19,6 +20,13 @@ const Reply: React.FC<ReplyProps & Props> = (props) => {
   const handleReply = (content: string) => {
     props.onReply(content, props.user.username);
     setReply(false);
+  };
+
+  const handleVote = (type: "up" | "down") => {
+    if (currentUser.username === props.user.username) {
+      return;
+    }
+    props.onVote(props.id, type);
   };
 
   return (
@@ -42,13 +50,24 @@ const Reply: React.FC<ReplyProps & Props> = (props) => {
           </p>
         </div>
         <Vote className="vote">
-          <img src="images/icon-plus.svg" alt="plus icon" />
+          <img
+            src="images/icon-plus.svg"
+            alt="plus icon"
+            onClick={(_) => handleVote("up")}
+          />
           <span>{props.score}</span>
-          <img src="images/icon-minus.svg" alt="minus icon" />
+          <img
+            src="images/icon-minus.svg"
+            alt="minus icon"
+            onClick={(_) => handleVote("down")}
+          />
         </Vote>
         {currentUser.username === props.user.username ? (
           <div className="action">
-            <Badge modifier="secondary" onClick={_ => props.onDelete(props.id)}>
+            <Badge
+              modifier="secondary"
+              onClick={(_) => props.onDelete(props.id)}
+            >
               <img src="images/icon-delete.svg" alt="delete icon" />
               <span>Delete</span>
             </Badge>
@@ -59,7 +78,7 @@ const Reply: React.FC<ReplyProps & Props> = (props) => {
           </div>
         ) : (
           <div className="action">
-            <Badge modifier="primary" onClick={_ => setReply(true)}>
+            <Badge modifier="primary" onClick={(_) => setReply(true)}>
               <img src="images/icon-reply.svg" alt="reply icon" />
               <span>Reply</span>
             </Badge>
