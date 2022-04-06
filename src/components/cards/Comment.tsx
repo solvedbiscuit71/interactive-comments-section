@@ -15,6 +15,37 @@ interface Props {
   onUpdate: (replyId: number | null, newContent: string) => void;
 }
 
+function getTimeStamp(createAt: number) {
+  const differ = Date.now() - createAt
+
+  const second = Math.floor(differ / 1000)
+  const minute = Math.floor(second / 60)
+  const hour = Math.floor(minute / 60)
+  const day = Math.floor(hour / 24)
+  const week = Math.floor(day / 7)
+  const month = Math.floor(week / 4)
+  const year = Math.floor(month / 12)
+  console.log([second,minute,hour,day,month,year])
+  return [second,minute,hour,day,month,year];
+}
+
+function getCreateAt(createAt: number) {
+  const keys = ['second','minute','hour','day','week','month','year']
+  const values = getTimeStamp(createAt)
+
+  const index = values.reduce((i,value) => {
+    if (value !== 0) {
+      return i + 1
+    }
+    return i
+  },-1)
+
+  if (index === -1) {
+    return "few seconds ago"
+  }
+  return values[index] + ' ' + keys[index] + ( values[index] === 1 ? '' : 's' ) + ' ago'
+}
+
 const Comment: React.FC<CommentProps & Props> = (props) => {
   const [reply, setReply] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
@@ -51,7 +82,7 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
               {props.user.username}
               {currentUser.username === props.user.username && <Tag>you</Tag>}
             </h2>
-            <span>{props.createdAt}</span>
+            <span>{getCreateAt(props.createdAt)}</span>
           </div>
           {edit ? (
             <div className="edit">

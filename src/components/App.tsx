@@ -40,7 +40,7 @@ const App: React.FC = () => {
       const newComment: CommentsProps = {
         id: newId,
         content: content,
-        createdAt: "seconds ago",
+        createdAt: Date.now() - 1,
         score: 0,
         user: data?.currentUser,
         replies: [],
@@ -65,7 +65,7 @@ const App: React.FC = () => {
         id: newId,
         content: content,
         replyingTo: replyingTo,
-        createdAt: "seconds ago",
+        createdAt: Date.now() - 1,
         user: data.currentUser,
         score: 0,
       };
@@ -122,10 +122,11 @@ const App: React.FC = () => {
     setData((oldData) => {
       let newData: DataProps = JSON.parse(JSON.stringify(oldData));
       if (replyId === null) {
+        newData.comments[commentId - 1].createdAt = Date.now() - 1
         newData.comments[commentId - 1].content = newContent;
       } else {
-        newData.comments[commentId - 1].replies[replyId - 1].content =
-          newContent;
+        newData.comments[commentId - 1].replies[replyId - 1].createdAt = Date.now() - 1
+        newData.comments[commentId - 1].replies[replyId - 1].content = newContent;
       }
       localStorage.setItem(key,JSON.stringify(newData))
       return newData;

@@ -9,7 +9,7 @@ export interface UserProps {
 export interface CommentProps {
   id: number;
   content: string;
-  createdAt: string;
+  createdAt: number;
   score: number;
   voted?: boolean;
   user: UserProps;
@@ -18,7 +18,7 @@ export interface CommentProps {
 export interface ReplyProps {
   id: number;
   content: string;
-  createdAt: string;
+  createdAt: number;
   score: number;
   voted?: boolean;
   replyingTo: string;
@@ -28,7 +28,7 @@ export interface ReplyProps {
 export interface CommentsProps {
   id: number;
   content: string;
-  createdAt: string;
+  createdAt: number;
   score: number;
   voted?: boolean;
   user: UserProps;
