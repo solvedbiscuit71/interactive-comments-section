@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 export default styled.div((props) => ({
-  display: 'flex',
+  display: "flex",
   flexDirection: "column",
-  gap: '.5em',
-  '.card': {
+  gap: ".5em",
+  ".card": {
     backgroundColor: props.theme.bg.card,
     borderRadius: ".625em",
 
@@ -39,6 +39,35 @@ export default styled.div((props) => ({
         color: props.theme.text.vote,
         fontWeight: 500,
         marginRight: ".25em",
+      },
+    },
+    ".edit": {
+      display: "flex",
+      gap: "1em",
+      flexDirection: "column",
+      marginBlock: "1em",
+
+      textarea: {
+        width: "100%",
+        minHeight: "6em",
+
+        border: `.125em solid ${props.theme.color.border}`,
+        borderRadius: ".625em",
+        padding: "1em 1.375em",
+        resize: "vertical",
+
+        fontSize: "1rem",
+        fontWeight: 400,
+        fontFamily: "Rubik",
+        color: props.theme.text.heading,
+
+        "&:focus": {
+          borderColor: props.theme.text.para,
+          outline: "none",
+        },
+      },
+      "> button": {
+        alignSelf: "flex-end",
       },
     },
   },

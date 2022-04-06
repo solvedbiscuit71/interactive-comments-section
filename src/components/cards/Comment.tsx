@@ -6,6 +6,7 @@ import UserContext from "../../contexts/UserContext";
 import Vote from "../../styles/components/Vote";
 import { CommentProps } from "../../interfaces/DataProps";
 import ReplyInput from "../inputs/ReplyInput";
+import Button from "../../styles/components/Button";
 
 interface Props {
   onReply: (content: string, replyingTo: string) => void;
@@ -15,6 +16,8 @@ interface Props {
 
 const Comment: React.FC<CommentProps & Props> = (props) => {
   const [reply, setReply] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [content, setContent] = useState(props.content);
   const currentUser = useContext(UserContext);
 
   const handleReply = (content: string) => {
@@ -27,6 +30,12 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
       return;
     }
     props.onVote(null, type);
+  };
+
+  const handleUpdate = () => {
+    // Need to update the data
+    console.log("New Comment:", content)
+    setEdit(false);
   };
 
   return (
@@ -44,7 +53,19 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
             </h2>
             <span>{props.createdAt}</span>
           </div>
-          <p>{props.content}</p>
+          {edit ? (
+            <div className="edit">
+              <textarea
+                name="content"
+                value={content}
+                placeholder="Add a comment..."
+                onChange={(event) => setContent(event.target.value)}
+              ></textarea>
+              <Button onClick={handleUpdate}>UPDATE</Button>
+            </div>
+          ) : (
+            <p>{props.content}</p>
+          )}
         </div>
         <Vote className="vote">
           <img
@@ -65,7 +86,7 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
               <img src="images/icon-delete.svg" alt="delete icon" />
               <span>Delete</span>
             </Badge>
-            <Badge modifier="primary">
+            <Badge modifier="primary" onClick={(_) => setEdit(true)}>
               <img src="images/icon-edit.svg" alt="edit icon" />
               <span>Edit</span>
             </Badge>
