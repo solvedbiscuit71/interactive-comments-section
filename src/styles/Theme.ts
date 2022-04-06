@@ -1,7 +1,11 @@
 declare module "@emotion/react" {
   export interface Theme {
     bg: {
-      button: string;
+      button: {
+        primary: string;
+        secondary: string;
+        ghost: string;
+      };
       card: string;
       tag: string;
       vote: string;
@@ -25,7 +29,11 @@ declare module "@emotion/react" {
 
 const theme = {
   bg: {
-    button: "#5457b6",
+    button: {
+      primary: "#5457b6",
+      secondary: "#ed6468",
+      ghost: "#67727e",
+    },
     card: "#ffffff",
     tag: "#5457b6",
     vote: "#f5f6fa",

@@ -7,9 +7,18 @@ import theme from "../styles/Theme";
 import { Global, ThemeProvider } from "@emotion/react";
 import { useState, useEffect } from "react";
 import CommentInput from "./inputs/CommentInput";
+import Modal from "./cards/Modal";
+
+interface DeleteProps {
+  commentId: number;
+  replyId: number | null;
+}
 
 const App: React.FC = () => {
   const [data, setData] = useState<DataProps | null>(null);
+  const [toDelete, setDelete] = useState<DeleteProps | {}>({});
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     fetch("data.json")
       .then((res) => res.json())
@@ -60,6 +69,23 @@ const App: React.FC = () => {
     }
   };
 
+  const deleteComment = (confirm: boolean) => {
+    setShowModal(false)
+
+    if (confirm) {
+      // remove that particular comment!
+    }
+    setDelete({})
+  }
+
+  const comfirmDelete = (commentId: number, replyId: number | null) => {
+    setDelete({
+      commentId: commentId,
+      replyId: replyId
+    });
+    setShowModal(true)
+  }
+
   return (
     <>
       <Global
@@ -90,6 +116,7 @@ const App: React.FC = () => {
                     key={comment.id}
                     {...comment}
                     onReply={createReply}
+                    onDelete={comfirmDelete}
                   />
                 );
               })}
@@ -97,6 +124,7 @@ const App: React.FC = () => {
             </UserContext.Provider>
           )}
         </Wrapper>
+        <Modal show={showModal} onDelete={deleteComment}/>
       </ThemeProvider>
     </>
   );

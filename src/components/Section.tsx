@@ -6,6 +6,7 @@ import { CommentsProps } from "../interfaces/DataProps";
 
 interface Props {
   onReply: (content: string, replyingTo: string, commentId: number) => void;
+  onDelete: (commentId: number, replyId: number | null) => void;
 }
 
 const Section: React.FC<CommentsProps & Props> = (props) => {
@@ -14,8 +15,8 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
   };
 
   const handleDelete = (replyId: number | null) => {
-    return
-  }
+    props.onDelete(props.id, replyId);
+  };
 
   return (
     <SectionWrapper>
@@ -23,7 +24,12 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
       {props.replies.length !== 0 && (
         <SectionWrapper isReply={true}>
           {props.replies.map((reply) => (
-            <Reply key={reply.id} {...reply} onReply={handleReply} onDelete={handleDelete} />
+            <Reply
+              key={reply.id}
+              {...reply}
+              onReply={handleReply}
+              onDelete={handleDelete}
+            />
           ))}
         </SectionWrapper>
       )}
