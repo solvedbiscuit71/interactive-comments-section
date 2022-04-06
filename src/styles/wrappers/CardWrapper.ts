@@ -62,7 +62,8 @@ export default styled.div((props) => ({
         color: props.theme.text.heading,
 
         "&:focus": {
-          borderColor: props.theme.text.para,
+          borderColor: props.theme.bg.button.primary,
+          caretColor: props.theme.bg.button.primary,
           outline: "none",
         },
       },
@@ -79,5 +80,31 @@ export default styled.div((props) => ({
     position: "absolute",
     bottom: "1.625em",
     right: "1em",
+  },
+
+  "@media (min-width: 769px)": {
+    ".card": {
+      display: "flex",
+      flexDirection: "row-reverse",
+      gap: "1.5em",
+
+      padding: "1.5em",
+    },
+
+    ".hero": {
+      flexGrow: 1,
+    },
+
+    ".vote": {
+      flexShrink: 0,
+    },
+
+    ".action": {
+      alignItems: "flex-start",
+      maxHeight: "2em",
+
+      right: "1.5em",
+      top: "2.25em",
+    },
   },
 }));

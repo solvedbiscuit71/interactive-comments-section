@@ -15,8 +15,14 @@ export default styled("section")<Props>(
   (props) => {
     if (props.isReply !== undefined) {
       return {
+        width: 686,
         borderLeft: `.125em solid ${props.theme.color.border}`,
         paddingLeft: ".875em",
+
+        "@media (min-width: 769px)": {
+          paddingLeft: "2.625em",
+          marginLeft: "2.625em",
+        },
       };
     }
   }

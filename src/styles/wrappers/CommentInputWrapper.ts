@@ -5,7 +5,16 @@ export default styled.div((props) => ({
   borderRadius: ".625em",
 
   padding: "1em",
+  display: "grid",
+  gap: "1em",
+  alignItems: "center",
+  gridTemplateAreas: `
+  "textarea textarea"
+  "img button"
+  `,
+
   textarea: {
+    gridArea: "textarea",
     width: "100%",
     minHeight: "6em",
 
@@ -20,17 +29,37 @@ export default styled.div((props) => ({
     color: props.theme.text.heading,
 
     "&:focus": {
-      borderColor: props.theme.text.para,
+      borderColor: props.theme.bg.button.primary,
+      caretColor: props.theme.bg.button.primary,
       outline: "none",
     },
   },
-  "> div": {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: "1em",
+
+  img: {
+    gridArea: "img",
+    justifySelf: "flex-start",
+    width: "2em",
+  },
+
+  button: {
+    gridArea: "button",
+    justifySelf: "flex-end",
+  },
+
+  "@media (min-width: 769px)": {
+    padding: "1.5em",
+    alignItems: "flex-start",
+    gridTemplateColumns: "2.5em 1fr 6.5em",
+    gridTemplateAreas: `
+    "img textarea button"
+    `,
+
+    textarea: {
+      justifySelf: "flex-start",
+    },
+
     img: {
-      width: "2em",
+      width: "2.5em",
     },
   },
 }));

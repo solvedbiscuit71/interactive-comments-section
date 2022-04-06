@@ -7,4 +7,8 @@ export default styled.div((props) => ({
   display: "flex",
   flexDirection: "column",
   gap: "1em",
+
+  "@media (min-width: 769px)": {
+    margin: "4em auto",
+  },
 }));

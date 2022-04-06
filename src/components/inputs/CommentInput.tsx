@@ -27,13 +27,11 @@ const CommentInput: React.FC<Props> = (props) => {
         placeholder="Add a comment..."
         onChange={(event) => setContent(event.target.value)}
       ></textarea>
-      <div>
-        <img
-          src={currentUser.image.webp}
-          alt={`${currentUser.username}'s avatar`}
-        />
-        <Button onClick={handleClick}>SEND</Button>
-      </div>
+      <img
+        src={currentUser.image.webp}
+        alt={`${currentUser.username}'s avatar`}
+      />
+      <Button onClick={handleClick}>SEND</Button>
     </CommentInputWrapper>
   );
 };

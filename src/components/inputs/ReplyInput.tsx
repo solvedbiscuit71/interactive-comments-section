@@ -27,7 +27,7 @@ const ReplyInput: React.FC<Props> = ({ onReply, replyingTo }) => {
   const handleReply = (event: React.MouseEvent<HTMLButtonElement>) => {
     const trimContent = content.slice(replyingTo.length + 2).trim();
     if (trimContent.length === 0) {
-      return
+      return;
     }
     onReply(trimContent);
   };
@@ -40,13 +40,11 @@ const ReplyInput: React.FC<Props> = ({ onReply, replyingTo }) => {
         placeholder="Add a comment..."
         onChange={handleChange}
       ></textarea>
-      <div>
-        <img
-          src={currentUser.image.webp}
-          alt={`${currentUser.username}'s avatar`}
-        />
-        <Button onClick={handleReply}>REPLY</Button>
-      </div>
+      <img
+        src={currentUser.image.webp}
+        alt={`${currentUser.username}'s avatar`}
+      />
+      <Button onClick={handleReply}>REPLY</Button>
     </CommentInputWrapper>
   );
 };
