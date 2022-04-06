@@ -102,6 +102,46 @@ const App: React.FC = () => {
     setShowModal(true);
   };
 
+  const handleVote = (
+    commentId: number,
+    replyId: number | null,
+    type: "up" | "down"
+  ) => {
+    setData((oldData) => {
+      let newData: DataProps = JSON.parse(JSON.stringify(oldData));
+      let comment = newData.comments[commentId - 1];
+      switch (type) {
+        case "up":
+          if (replyId === null) {
+            if (comment.voted === false) {
+              comment.score++;
+              comment.voted = true;
+            }
+          } else {
+            if (comment.replies[replyId - 1].voted === false) {
+              comment.replies[replyId - 1].score++;
+              comment.replies[replyId - 1].voted = true;
+            }
+          }
+          break;
+        case "down":
+          if (replyId === null) {
+            if (comment.voted === true) {
+              comment.score--;
+              comment.voted = false;
+            }
+          } else {
+            if (comment.replies[replyId - 1].voted === true) {
+              comment.replies[replyId - 1].score--;
+              comment.replies[replyId - 1].voted = false;
+            }
+          }
+          break;
+      }
+      return newData;
+    });
+  };
+
   return (
     <>
       <Global
@@ -133,6 +173,7 @@ const App: React.FC = () => {
                     {...comment}
                     onReply={createReply}
                     onDelete={comfirmDelete}
+                    onVote={handleVote}
                   />
                 );
               })}

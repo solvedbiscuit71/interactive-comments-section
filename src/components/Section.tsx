@@ -7,6 +7,7 @@ import { CommentsProps } from "../interfaces/DataProps";
 interface Props {
   onReply: (content: string, replyingTo: string, commentId: number) => void;
   onDelete: (commentId: number, replyId: number | null) => void;
+  onVote: (commentId: number, replyId: number | null, type: 'up' | 'down') => void
 }
 
 const Section: React.FC<CommentsProps & Props> = (props) => {
@@ -19,7 +20,7 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
   };
 
   const handleVote = (replyId: number | null, type: "up" | "down") => {
-    console.log(props.id, replyId, type);
+    props.onVote(props.id, replyId, type);
   };
 
   return (
