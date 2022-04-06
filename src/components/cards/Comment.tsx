@@ -9,6 +9,7 @@ import ReplyInput from "../inputs/ReplyInput";
 
 interface Props {
   onReply: (content: string, replyingTo: string) => void;
+  onDelete: (replyId: number | null) => void;
 }
 
 const Comment: React.FC<CommentProps & Props> = (props) => {
@@ -44,7 +45,7 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
         </Vote>
         {currentUser.username === props.user.username ? (
           <div className="action">
-            <Badge modifier="secondary">
+            <Badge modifier="secondary" onClick={_ => props.onDelete(null)}>
               <img src="images/icon-delete.svg" alt="delete icon" />
               <span>Delete</span>
             </Badge>
@@ -55,7 +56,7 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
           </div>
         ) : (
           <div className="action">
-            <Badge modifier="primary" onClick={(_) => setReply(true)}>
+            <Badge modifier="primary" onClick={_ => setReply(true)}>
               <img src="images/icon-reply.svg" alt="reply icon" />
               <span>Reply</span>
             </Badge>

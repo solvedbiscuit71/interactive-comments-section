@@ -13,13 +13,17 @@ const Section: React.FC<CommentsProps & Props> = (props) => {
     props.onReply(content, replyingTo, props.id);
   };
 
+  const handleDelete = (replyId: number | null) => {
+    return
+  }
+
   return (
     <SectionWrapper>
-      <Comment {...props} onReply={handleReply} />
+      <Comment {...props} onReply={handleReply} onDelete={handleDelete} />
       {props.replies.length !== 0 && (
         <SectionWrapper isReply={true}>
           {props.replies.map((reply) => (
-            <Reply key={reply.id} {...reply} onReply={handleReply} />
+            <Reply key={reply.id} {...reply} onReply={handleReply} onDelete={handleDelete} />
           ))}
         </SectionWrapper>
       )}

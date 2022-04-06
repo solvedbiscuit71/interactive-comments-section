@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import CommentInput from "./inputs/CommentInput";
 
 const App: React.FC = () => {
-  console.log('rendering')
   const [data, setData] = useState<DataProps | null>(null);
   useEffect(() => {
     fetch("data.json")
