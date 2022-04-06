@@ -16,7 +16,7 @@ interface DeleteProps {
 
 const App: React.FC = () => {
   const [data, setData] = useState<DataProps | null>(null);
-  const [toDelete, setDelete] = useState<DeleteProps | {}>({});
+  const [toDelete, setDelete] = useState<DeleteProps | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const App: React.FC = () => {
         replies: [],
       };
       setData((oldData) => {
-        let newData = JSON.parse(JSON.stringify(oldData))
+        let newData = JSON.parse(JSON.stringify(oldData));
         newData.comments.push(newComment);
         return newData;
       });
@@ -62,7 +62,7 @@ const App: React.FC = () => {
       };
 
       setData((oldData) => {
-        let newData = JSON.parse(JSON.stringify(oldData))
+        let newData = JSON.parse(JSON.stringify(oldData));
         newData.comments[commentId - 1].replies.push(newReply);
         return newData;
       });
@@ -70,21 +70,37 @@ const App: React.FC = () => {
   };
 
   const deleteComment = (confirm: boolean) => {
-    setShowModal(false)
+    setShowModal(false);
 
-    if (confirm) {
-      // remove that particular comment!
+    if (confirm && toDelete !== null) {
+      if (toDelete.replyId === null) {
+        setData((oldData) => {
+          let newData: DataProps = JSON.parse(JSON.stringify(oldData));
+          newData.comments = newData.comments.filter(
+            (comment) => comment.id !== toDelete.commentId
+          );
+          return newData;
+        });
+      } else {
+        setData((oldData) => {
+          let newData: DataProps = JSON.parse(JSON.stringify(oldData));
+          newData.comments[toDelete.commentId - 1].replies = newData.comments[
+            toDelete.commentId - 1
+          ].replies.filter((reply) => reply.id !== toDelete.replyId);
+          return newData;
+        });
+      }
     }
-    setDelete({})
-  }
+    setDelete(null);
+  };
 
   const comfirmDelete = (commentId: number, replyId: number | null) => {
     setDelete({
       commentId: commentId,
-      replyId: replyId
+      replyId: replyId,
     });
-    setShowModal(true)
-  }
+    setShowModal(true);
+  };
 
   return (
     <>
@@ -124,7 +140,7 @@ const App: React.FC = () => {
             </UserContext.Provider>
           )}
         </Wrapper>
-        <Modal show={showModal} onDelete={deleteComment}/>
+        <Modal show={showModal} onDelete={deleteComment} />
       </ThemeProvider>
     </>
   );
