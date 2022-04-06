@@ -18,7 +18,7 @@ export default styled.div<Props>((props) => ({
   '.modal': {
     backgroundColor: 'white',
     borderRadius: '.625em',
-    width: 400,
+    width: 'min(91.5vw,400px)',
     minHeight: 252,
     padding: '2em',
     'h1': {

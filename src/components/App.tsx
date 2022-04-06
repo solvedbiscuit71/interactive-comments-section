@@ -32,7 +32,7 @@ const App: React.FC = () => {
       const newComment: CommentsProps = {
         id: newId,
         content: content,
-        createdAt: "a few seconds ago",
+        createdAt: "seconds ago",
         score: 0,
         user: data?.currentUser,
         replies: [],
@@ -56,7 +56,7 @@ const App: React.FC = () => {
         id: newId,
         content: content,
         replyingTo: replyingTo,
-        createdAt: "a few seconds ago",
+        createdAt: "seconds ago",
         user: data.currentUser,
         score: 0,
       };
