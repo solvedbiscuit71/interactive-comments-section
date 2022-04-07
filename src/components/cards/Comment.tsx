@@ -78,10 +78,10 @@ const Comment: React.FC<CommentProps & Props> = (props) => {
               src={props.user.image.webp}
               alt={`${props.user.username}'s avatar`}
             />
-            <h2>
+            <h1>
               {props.user.username}
               {currentUser.username === props.user.username && <Tag>you</Tag>}
-            </h2>
+            </h1>
             <span>{getCreateAt(props.createdAt)}</span>
           </div>
           {edit ? (
