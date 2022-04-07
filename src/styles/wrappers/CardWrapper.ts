@@ -22,14 +22,14 @@ export default styled.div((props) => ({
       img: {
         width: "2em",
       },
-      h1: {
+      h2: {
         fontSize: "1rem",
         fontWeight: 500,
         color: props.theme.text.heading,
 
         "~ span:last-of-type": {
           color: props.theme.text.para,
-          fontSize: ".9rem",
+          fontSize: '.9rem'
         },
       },
     },
@@ -95,11 +95,11 @@ export default styled.div((props) => ({
 
     ".hero": {
       flexGrow: 1,
-      ".flex": {
-        "h1 ~ span:last-of-type": {
-          fontSize: "1rem",
-        },
-      },
+      '.flex': {
+        'h2 ~ span:last-of-type': {
+          fontSize: '1rem'
+        }
+      }
     },
 
     ".vote": {
