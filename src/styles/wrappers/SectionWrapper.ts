@@ -19,7 +19,7 @@ export default styled("section")<Props>(
         paddingLeft: ".875em",
 
         "@media (min-width: 769px)": {
-          width: 686,
+          width: 'min(calc(91.5vw - 2.625em),686px)',
           paddingLeft: "2.625em",
           marginLeft: "2.625em",
         },
